@@ -23,8 +23,9 @@ function createShoesCard(shoe) {
   const name = shoe.name.split(" ");
   const brand = name[0];
   const model = name.slice(1).join(" ");
-  const shoeCard = document.createElement("div");
+  const shoeCard = document.createElement("a");
   shoeCard.classList.add("product");
+  shoeCard.href = `./product.html?id=${shoe.id}`;
   shoeCard.innerHTML = `
     <img src="${shoe["image_url"]}" alt="" />
     <div class="product-info">
@@ -33,14 +34,6 @@ function createShoesCard(shoe) {
       <p class="price">$${shoe.price}</p>
     </div>
   `;
-  const productInfo = shoeCard.querySelector(".product-info");
-  const button = document.createElement("button");
-  button.id = "shoe-" + shoe.id + "-item";
-  button.innerHTML = "Agregar al carrito";
-  productInfo.appendChild(button);
-  button.addEventListener("click", () => {
-    addToCart(shoe);
-  });
   return shoeCard;
 }
 
@@ -48,8 +41,8 @@ function addToCart(data) {
   localStorage.setItem("shoe-" + data.id, JSON.stringify(data));
 }
 
-async function insertShoesCards() {
-  const shoesContainer = document.querySelector(".products");
+async function insertShoesCards(selector) {
+  const shoesContainer = document.querySelector(selector);
   const shoes = await getShoes();
   shoes.forEach((shoe) => {
     const shoeCard = createShoesCard(shoe);
@@ -57,6 +50,7 @@ async function insertShoesCards() {
   });
 }
 
-insertShoesCards();
+insertShoesCards("#discount-products");
+insertShoesCards("#recommended-products");
 
 getShoes().then((data) => console.log(data));

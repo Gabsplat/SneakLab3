@@ -4,33 +4,34 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sneak.</title>
+    <link rel="stylesheet" href="/styles/home.css" />
     <link rel="stylesheet" href="/styles/style.css" />
   </head>
   <body>
-    <!-- <nav class="container navbar">
-      <img src="/assets/logo.png" alt="" />
+    <nav class="container navbar">
+      <img src="/assets/images/logo.png" alt="" />
       <div class="nav-items">
         <a href="/sneakers.html">Sneakers</a>
         <form>
-          <input type="text" />
+          <input type="text" placeholder="Busca un sneaker..." />
           <img src="/assets/icons/search.svg" alt="" />
         </form>
-        <img style="color: blue" src="assets/icons/shopping-cart.svg" alt="" />
+        <img style="color: blue" src="/assets/icons/shopping-cart.svg" alt="" />
       </div>
-    </nav> -->
+    </nav>
     <nav class="container nav-mobile">
       <div class="nav-content">
-        <img src="/assets/logo.png" alt="" />
+        <img src="/assets/images/logo.png" alt="" />
         <div class="nav-items">
           <img
             style="color: blue"
-            src="assets/icons/shopping-cart.svg"
+            src="/assets/icons/shopping-cart.svg"
             alt=""
           />
           <img
             style="color: blue"
             id="menu-button"
-            src="assets/icons/menu.svg"
+            src="/assets/icons/menu.svg"
             alt=""
           />
         </div>
@@ -44,39 +45,74 @@
         </form>
       </div>
     </nav>
-    <!-- <nav class="container nav-mobile">
-      <img src="/assets/logo.png" alt="" />
-      <div class="nav-items">
-        <a href="/sneakers.html">Sneakers</a>
-        <form>
-          <input type="text" />
-          <img src="/assets/icons/search.svg" alt="" />
-        </form>
-        <img style="color: blue" src="assets/icons/shopping-cart.svg" alt="" />
-      </div>
-    </nav> -->
+
     <section class="hero container">
       <div class="left-section">
         <h1>
           Encuentra tu <br />
           <span>sneaker perfecto</span>
         </h1>
-        <button class="cta-button">Descubre</button>
+        <a href="#discount-title" class="cta-button">Descubre</a>
       </div>
       <div class="images">
-        <img class="hero-shoe" src="/assets/shoe1.png" alt="" />
-        <img class="hero-shoe" src="/assets/shoe2.png" alt="" />
-        <img class="hero-shoe" src="/assets/shoe3.png" alt="" />
+        <img class="hero-shoe" src="/assets/images/shoe1.png" alt="" />
+        <img class="hero-shoe" src="/assets/images/shoe2.png" alt="" />
+        <img class="hero-shoe" src="/assets/images/shoe3.png" alt="" />
       </div>
     </section>
-    <section class="container">
-      <h2>En oferta</h2>
-      <div class="products"></div>
+    <section class="discount-products container">
+      <h2 id="discount-title" class="section-title">En oferta</h2>
+      <div id="discount-products" class="products"></div>
     </section>
-    <section class="container">
-      <h2>Recomendados</h2>
-      <div class="products"></div>
+    <section class="recommended-products container">
+      <h2 class="section-title">Recomendados</h2>
+      <div id="recommended-products" class="products"></div>
+      <div class="button-end">
+        <a href="#" class="cta-button section-button">Ver más..</a>
+      </div>
     </section>
+    <section class="brands-section container">
+      <h2 class="section-title">Marcas</h2>
+      <div class="brands">
+        <a class="brand" href="#">
+          <img src="/assets/images/logo-adidas.png" alt="" />
+        </a>
+        <a class="brand" href="#">
+          <img src="/assets/images/logo-nike.png" alt="" />
+        </a>
+        <a class="brand" href="#">
+          <img src="/assets/images/logo-puma.png" alt="" />
+        </a>
+      </div>
+    </section>
+
+    <footer>
+      <div class="footer container">
+        <div class="footer-left-section">
+          <img
+            class="footer-logo"
+            src="/assets/images/logo-white.png"
+            alt="Sneak Logo"
+          />
+          <div>
+            <span class="footer-location"
+              >San Martín 293, Mendoza, Argentina</span
+            >
+            <span class="footer-shipping">Envíos a todo el país</span>
+          </div>
+        </div>
+        <div class="footer-right-section">
+          <div class="social-icons">
+            <a href="#"><img src="/assets/icons/instagram.svg" alt="" /></a>
+            <a href="#"><img src="/assets/icons/twitter.svg" alt="" /></a>
+            <a href="#"><img src="/assets/icons/mail.svg" alt="" /></a>
+          </div>
+          <span
+            >Todos los derechos reservados Sneak. <span id="current-year"></span
+          ></span>
+        </div>
+      </div>
+    </footer>
 
     <script src="/js/home.js"></script>
     <script src="/js/script.js"></script>
