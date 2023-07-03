@@ -1,20 +1,11 @@
-// console.log("hola");
-// // const baseUrl = "https://ankbyqnqwkoduboshrsd.supabase.co/rest/v1/";
-// const supabaseHeaders = {
-//   apikey:
-//     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFua2J5cW5xd2tvZHVib3NocnNkIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODc3OTQ1OTcsImV4cCI6MjAwMzM3MDU5N30.b9SW_Hy3JQsb51rB1QCYexHkQuJP3utk0ABGE0x9mn0",
-//   Authorization:
-//     "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFua2J5cW5xd2tvZHVib3NocnNkIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODc3OTQ1OTcsImV4cCI6MjAwMzM3MDU5N30.b9SW_Hy3JQsb51rB1QCYexHkQuJP3utk0ABGE0x9mn0",
-// };
-
-// async function getAllShoes() {
-//   const response = await fetch(baseUrl + "/shoes?select=*", {
-//     method: "GET",
-//     headers: supabaseHeaders,
-//   });
-//   const data = await response.json();
-//   return data;
-// }
+export const baseUrl = "https://ankbyqnqwkoduboshrsd.supabase.co/rest/v1/";
+export const supabaseHeaders = {
+  apikey:
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFua2J5cW5xd2tvZHVib3NocnNkIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODc3OTQ1OTcsImV4cCI6MjAwMzM3MDU5N30.b9SW_Hy3JQsb51rB1QCYexHkQuJP3utk0ABGE0x9mn0",
+  Authorization:
+    "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFua2J5cW5xd2tvZHVib3NocnNkIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODc3OTQ1OTcsImV4cCI6MjAwMzM3MDU5N30.b9SW_Hy3JQsb51rB1QCYexHkQuJP3utk0ABGE0x9mn0",
+  "Access-Control-Allow-Origin": "*",
+};
 
 /* Menu */
 
@@ -24,6 +15,59 @@ const menu = document.querySelector(".nav-menu");
 menuButton.addEventListener("click", () => {
   menu.classList.toggle("hidden");
 });
+
+/* Cart items and Shoes */
+async function getShoes(amount = 6) {
+  const response = await fetch(baseUrl + "/shoes?select=*", {
+    method: "GET",
+    headers: {
+      ...supabaseHeaders,
+      Range: `0-${amount - 1}`,
+    },
+  });
+  const data = await response.json();
+  return data;
+}
+
+export function createShoesCard(shoe) {
+  const model = shoe.name;
+  const brand = shoe.brand;
+  const shoeCard = document.createElement("a");
+  shoeCard.classList.add("product");
+  shoeCard.href = `./product.html?id=${shoe.id}`;
+  shoeCard.innerHTML = `
+    <img src="${shoe["image_url"]}" alt="" />
+    <div class="product-info">
+      <h3>${brand}</h3>
+      <p>${model}</p>
+      <p class="price">$${shoe.price}</p>
+    </div>
+  `;
+
+  return shoeCard;
+}
+
+function addToCart(data) {
+  localStorage.setItem("shoe-" + data.id, JSON.stringify(data));
+}
+
+export async function insertShoesCards(selector) {
+  const shoesContainer = document.querySelector(selector);
+  const shoes = await getShoes();
+  shoes.forEach((shoe) => {
+    const shoeCard = createShoesCard(shoe);
+    shoesContainer.appendChild(shoeCard);
+  });
+}
+
+export function updateCartCounter() {
+  const cartCounter = document.querySelectorAll(".cart-counter");
+  cartCounter.forEach((counter) => {
+    counter.textContent = localStorage.length;
+  });
+}
+
+updateCartCounter();
 
 /* Footer */
 

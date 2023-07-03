@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sneak.</title>
+    <link rel="stylesheet" href="/styles/products.css" />
+    <link rel="stylesheet" href="/styles/style.css" />
+  </head>
+  <body>
+    <nav class="container navbar">
+      <img src="/assets/images/logo.png" alt="" />
+      <div class="nav-items">
+        <a href="/products.html">Sneakers</a>
+        <form>
+          <input type="text" placeholder="Busca un sneaker..." />
+          <img src="/assets/icons/search.svg" alt="" />
+        </form>
+        <div class="cart-icon-group">
+          <span class="cart-counter">0</span>
+          <a href="#">
+            <img
+              style="color: blue"
+              src="/assets/icons/shopping-cart.svg"
+              alt=""
+            />
+          </a>
+        </div>
+      </div>
+    </nav>
+    <nav class="container nav-mobile">
+      <div class="nav-content">
+        <img src="/assets/images/logo.png" alt="" />
+        <div class="nav-items">
+          <div class="cart-icon-group">
+            <span class="cart-counter">0</span>
+
+            <img
+              style="color: blue"
+              src="/assets/icons/shopping-cart.svg"
+              alt=""
+            />
+          </div>
+          <img
+            style="color: blue"
+            id="menu-button"
+            src="/assets/icons/menu.svg"
+            alt=""
+          />
+        </div>
+      </div>
+
+      <div class="nav-menu hidden">
+        <a href="/sneakers.html">Sneakers</a>
+        <form>
+          <input type="text" />
+          <img src="/assets/icons/search.svg" alt="" />
+        </form>
+      </div>
+    </nav>
+    <main>
+      <section id="search-section" class="container search-section">
+        <h2>
+          Búsqueda: <b><span id="search-value"></span></b>
+        </h2>
+      </section>
+      <div class="page-content container">
+        <aside class="filters-section">
+          <h3>FILTRAR</h3>
+          <form class="filters">
+            <div id="filters-menu" class="filters-menu">
+              <span>Filtrar</span>
+              <img src="/assets/icons/filters.svg" alt="" />
+            </div>
+            <div class="brand filter-group">
+              <h4>Marca</h4>
+
+              <label for="nikeCheckbox"
+                ><input
+                  type="checkbox"
+                  class="checkbox"
+                  id="nikeCheckbox"
+                  name="nikeCheckbox"
+                  value="Nike"
+                />Nike</label
+              >
+
+              <label for="adidasCheckbox"
+                ><input
+                  type="checkbox"
+                  class="checkbox"
+                  id="adidasCheckbox"
+                  name="adidasCheckbox"
+                  value="Adidas"
+                />Adidas</label
+              >
+
+              <label for="pumaCheckbox"
+                ><input
+                  type="checkbox"
+                  class="checkbox"
+                  id="pumaCheckbox"
+                  name="pumaCheckbox"
+                  value="Puma"
+                />Puma</label
+              >
+            </div>
+            <div class="size filter-group">
+              <h4>Talle</h4>
+              <div class="size-inputs">
+                <label for="size39"
+                  ><input
+                    type="checkbox"
+                    class="checkbox"
+                    id="size38"
+                    name="size38"
+                    value="38"
+                  />38</label
+                >
+
+                <label for="size39"
+                  ><input
+                    type="checkbox"
+                    class="checkbox"
+                    id="size39"
+                    name="size39"
+                    value="39"
+                  />39</label
+                >
+                <label for="size40"
+                  ><input
+                    type="checkbox"
+                    class="checkbox"
+                    id="size40"
+                    name="size40"
+                    value="40"
+                  />40</label
+                >
+
+                <label for="size40"
+                  ><input
+                    type="checkbox"
+                    class="checkbox"
+                    id="size41"
+                    name="size41"
+                    value="41"
+                  />41</label
+                >
+
+                <label for="size40"
+                  ><input
+                    type="checkbox"
+                    class="checkbox"
+                    id="size42"
+                    name="size42"
+                    value="42"
+                  />42</label
+                >
+              </div>
+            </div>
+            <div class="price filter-group">
+              <h4>Precio</h4>
+              <label class="price-field" for="minPrice">
+                Min:
+                <input
+                  type="number"
+                  placeholder="0"
+                  min="0"
+                  max="30000"
+                  id="minPrice"
+                  name="minPrice"
+              /></label>
+              <label class="price-field" for="maxPrice">
+                Max:
+                <input
+                  type="number"
+                  placeholder="30000"
+                  min="0"
+                  max="30000"
+                  id="maxPrice"
+                  name="maxPrice"
+              /></label>
+              <button id="filter-button" class="filter-button">Filtrar</button>
+            </div>
+          </form>
+        </aside>
+        <section class="product-list">
+          <div class="misc">
+            <div>
+              <select name="order-products" id="order-products">
+                <option disabled selected>Ordenar por</option>
+                <option value="mayorPrecio">Mayor precio</option>
+                <option value="menorPrecio">Menor precio</option>
+              </select>
+            </div>
+          </div>
+          <div id="no-products" class="hidden">
+            <h3>
+              No se encontraron Sneakers con esos parámetros, intenta cambiando
+              los filtros o la búsqueda
+            </h3>
+          </div>
+          <div id="product-section" class="products-section"></div>
+          <div id="end-products" class="end-products">
+            <button id="next-page">Proxima página</button>
+          </div>
+        </section>
+      </div>
+    </main>
+    <footer>
+      <div class="footer container">
+        <div class="footer-left-section">
+          <img
+            class="footer-logo"
+            src="/assets/images/logo-white.png"
+            alt="Sneak Logo"
+          />
+          <div>
+            <span class="footer-location"
+              >San Martín 293, Mendoza, Argentina</span
+            >
+            <span class="footer-shipping">Envíos a todo el país</span>
+          </div>
+        </div>
+        <div class="footer-right-section">
+          <div class="social-icons">
+            <a href="#"><img src="/assets/icons/instagram.svg" alt="" /></a>
+            <a href="#"><img src="/assets/icons/twitter.svg" alt="" /></a>
+            <a href="#"><img src="/assets/icons/mail.svg" alt="" /></a>
+          </div>
+          <span
+            >Todos los derechos reservados Sneak. <span id="current-year"></span
+          ></span>
+        </div>
+      </div>
+    </footer>
+    <script type="module" src="/js/script.js"></script>
+    <script type="module" src="/js/products.js"></script>
+  </body>
+</html>
