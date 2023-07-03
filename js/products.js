@@ -30,13 +30,13 @@ function getUrlWithFilters({ brands, sizes, priceRange, search, order }) {
   if (sizes.length > 0) {
     url =
       baseUrl +
-      `/shoes?select=id,name,price,description,image_url,brand,discount,sizes!inner(*)&sizes.size=in.${
+      `/shoes?select=id,name,price,description,image_url,brand,discount_price,sizes!inner(*)&sizes.size=in.${
         "(" + sizes.join(",") + ")"
       }`;
   } else {
     url =
       baseUrl +
-      `/shoes?select=id,name,price,brand,image_url,description,discount,sizes(*)`;
+      `/shoes?select=id,name,price,brand,image_url,description,discount_price,sizes(*)`;
   }
 
   if (brands.length > 0) {

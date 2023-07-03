@@ -221,17 +221,29 @@ h5 {
   border-bottom-right-radius: 10px;
   background-color: #f7f7f7;
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
 }
 
 .product-info * {
   margin: 0;
 }
 
-.product-info .price {
-  margin-top: 20px;
+.product-info .price-info {
   font-weight: 700;
   font-size: 1.3em;
   text-align: right;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.product-info .price.discounted {
+  text-decoration: line-through;
+  color: rgba(194, 40, 40, 0.685);
+  font-size: 0.8em;
 }
 
 /* Footer */

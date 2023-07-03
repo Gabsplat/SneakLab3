@@ -16,18 +16,19 @@ menuButton.addEventListener("click", () => {
   menu.classList.toggle("hidden");
 });
 
+// Search
+
+const searchForm = document.querySelector("#search-form");
+
+searchForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const searchInput = document.querySelector("#search-input");
+
+  const search = searchInput.value;
+  window.location.href = `./products.html?search=${search}`;
+});
+
 /* Cart items and Shoes */
-async function getShoes(amount = 6) {
-  const response = await fetch(baseUrl + "/shoes?select=*", {
-    method: "GET",
-    headers: {
-      ...supabaseHeaders,
-      Range: `0-${amount - 1}`,
-    },
-  });
-  const data = await response.json();
-  return data;
-}
 
 export function createShoesCard(shoe) {
   const model = shoe.name;
@@ -38,9 +39,20 @@ export function createShoesCard(shoe) {
   shoeCard.innerHTML = `
     <img src="${shoe["image_url"]}" alt="" />
     <div class="product-info">
-      <h3>${brand}</h3>
-      <p>${model}</p>
-      <p class="price">$${shoe.price}</p>
+      <div>
+        <h3>${brand}</h3>
+        <p>${model}</p>
+      </div>
+      <div class="price-info">
+        <p class="price ${shoe.discount_price ? "discounted" : ""}">$${
+    shoe.price
+  }</p>
+        ${
+          shoe.discount_price
+            ? `<p class="discount">&nbsp$${shoe.discount_price}</p>`
+            : ""
+        }
+      </div>
     </div>
   `;
 
@@ -51,9 +63,8 @@ function addToCart(data) {
   localStorage.setItem("shoe-" + data.id, JSON.stringify(data));
 }
 
-export async function insertShoesCards(selector) {
+export async function insertShoesCards(shoes, selector) {
   const shoesContainer = document.querySelector(selector);
-  const shoes = await getShoes();
   shoes.forEach((shoe) => {
     const shoeCard = createShoesCard(shoe);
     shoesContainer.appendChild(shoeCard);
@@ -116,7 +127,6 @@ year.textContent = currentYear;
 //   return d;
 // }
 
-// console.log("hola");
 // async function getArgentinianCities() {
 //   // fetch get this https://apis.datos.gob.ar/georef/api/provincias
 //   // return only the cities
