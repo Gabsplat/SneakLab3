@@ -19,10 +19,18 @@ menuButton.addEventListener("click", () => {
 // Search
 
 const searchForm = document.querySelector("#search-form");
+const searchFormMobile = document.querySelector("#search-form-mobile");
 
 searchForm.addEventListener("submit", (e) => {
   e.preventDefault();
   const searchInput = document.querySelector("#search-input");
+
+  const search = searchInput.value;
+  window.location.href = `./products.html?search=${search}`;
+});
+searchFormMobile.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const searchInput = document.querySelector("#search-input-mobile");
 
   const search = searchInput.value;
   window.location.href = `./products.html?search=${search}`;
@@ -57,10 +65,6 @@ export function createShoesCard(shoe) {
   `;
 
   return shoeCard;
-}
-
-function addToCart(data) {
-  localStorage.setItem("shoe-" + data.id, JSON.stringify(data));
 }
 
 export async function insertShoesCards(shoes, selector) {

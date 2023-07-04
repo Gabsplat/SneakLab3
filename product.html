@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sneak.</title>
-    <link rel="stylesheet" href="/styles/products.css" />
+    <link rel="stylesheet" href="/styles/product.css" />
     <link rel="stylesheet" href="/styles/style.css" />
   </head>
   <body>
@@ -22,7 +22,7 @@
         </form>
         <div class="cart-icon-group">
           <span class="cart-counter">0</span>
-          <a href="#">
+          <a href="/cart.html">
             <img
               style="color: blue"
               src="/assets/icons/shopping-cart.svg"
@@ -34,16 +34,18 @@
     </nav>
     <nav class="container nav-mobile">
       <div class="nav-content">
-        <img src="/assets/images/logo.png" alt="" />
+        <a href="/"><img src="/assets/images/logo.png" alt="" /></a>
         <div class="nav-items">
           <div class="cart-icon-group">
             <span class="cart-counter">0</span>
 
-            <img
-              style="color: blue"
-              src="/assets/icons/shopping-cart.svg"
-              alt=""
-            />
+            <a href="/cart.html">
+              <img
+                style="color: blue"
+                src="/assets/icons/shopping-cart.svg"
+                alt=""
+              />
+            </a>
           </div>
           <img
             style="color: blue"
@@ -56,13 +58,45 @@
 
       <div class="nav-menu hidden">
         <a href="/sneakers.html">Sneakers</a>
-        <form>
-          <input type="text" />
+        <form id="search-form-mobile">
+          <input
+            id="search-input-mobile"
+            type="text"
+            placeholder="Busca un sneaker..."
+          />
           <img src="/assets/icons/search.svg" alt="" />
         </form>
       </div>
     </nav>
-    <main></main>
+    <main>
+      <section id="no-product-found" class="container">
+        <h1>Producto no encontrado</h1>
+        <a href="/products.html">Volver a la lista de productos</a>
+      </section>
+      <section id="product-content" class="container product-content">
+        <img id="product-image" src="" alt="" />
+        <div class="info">
+          <span id="product-brand" class="brand"></span>
+          <h1 id="product-name" class="name"></h1>
+          <hr class="line" />
+          <p id="product-description" class="description"></p>
+          <form id="product-add" class="size">
+            <label for="size"
+              >Selecciona un talle
+              <br />
+              <select name="size" id="size-select"></select>
+            </label>
+            <div class="product-add-bottom">
+              <span>
+                <span id="product-price" class="product-price"></span>
+                <span id="product-price-discount"></span>
+              </span>
+              <button id="add-to-cart">AGREGAR AL CARRITO</button>
+            </div>
+          </form>
+        </div>
+      </section>
+    </main>
     <footer>
       <div class="footer container">
         <div class="footer-left-section">
@@ -91,6 +125,6 @@
       </div>
     </footer>
     <script type="module" src="/js/script.js"></script>
-    <script type="module" src="/js/products.js"></script>
+    <script type="module" src="/js/product.js"></script>
   </body>
 </html>

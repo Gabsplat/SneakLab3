@@ -22,7 +22,7 @@
         </form>
         <div class="cart-icon-group">
           <span class="cart-counter">0</span>
-          <a href="#">
+          <a href="/cart.html">
             <img
               style="color: blue"
               src="/assets/icons/shopping-cart.svg"
@@ -34,16 +34,18 @@
     </nav>
     <nav class="container nav-mobile">
       <div class="nav-content">
-        <img src="/assets/images/logo.png" alt="" />
+        <a href="/"><img src="/assets/images/logo.png" alt="" /></a>
         <div class="nav-items">
           <div class="cart-icon-group">
             <span class="cart-counter">0</span>
 
-            <img
-              style="color: blue"
-              src="/assets/icons/shopping-cart.svg"
-              alt=""
-            />
+            <a href="/cart.html">
+              <img
+                style="color: blue"
+                src="/assets/icons/shopping-cart.svg"
+                alt=""
+              />
+            </a>
           </div>
           <img
             style="color: blue"
@@ -56,8 +58,12 @@
 
       <div class="nav-menu hidden">
         <a href="/sneakers.html">Sneakers</a>
-        <form>
-          <input type="text" />
+        <form id="search-form-mobile">
+          <input
+            id="search-input-mobile"
+            type="text"
+            placeholder="Busca un sneaker..."
+          />
           <img src="/assets/icons/search.svg" alt="" />
         </form>
       </div>

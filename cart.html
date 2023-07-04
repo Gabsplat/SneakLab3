@@ -4,21 +4,166 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sneak.</title>
+    <link rel="stylesheet" href="/styles/cart.css" />
     <link rel="stylesheet" href="/styles/style.css" />
   </head>
   <body>
     <nav class="container navbar">
-      <img src="/assets/logo.png" alt="" />
-      <div>
-        <img
-          style="width: 100px; height: 100px; color: blue"
-          src="assets/icons/shopping-cart.svg"
-          alt=""
-        />
+      <a href="/"><img src="/assets/images/logo.png" alt="" /></a>
+      <div class="nav-items">
+        <a href="/products.html">Sneakers</a>
+        <form id="search-form">
+          <input
+            id="search-input"
+            type="text"
+            placeholder="Busca un sneaker..."
+          />
+          <img src="/assets/icons/search.svg" alt="" />
+        </form>
+        <div class="cart-icon-group">
+          <span class="cart-counter">0</span>
+          <a href="/cart.html">
+            <img
+              style="color: blue"
+              src="/assets/icons/shopping-cart.svg"
+              alt=""
+            />
+          </a>
+        </div>
       </div>
     </nav>
+    <nav class="container nav-mobile">
+      <div class="nav-content">
+        <a href="/"><img src="/assets/images/logo.png" alt="" /></a>
+        <div class="nav-items">
+          <div class="cart-icon-group">
+            <span class="cart-counter">0</span>
 
-    <script src="/js/cart.js"></script>
-    <script src="/js/script.js"></script>
+            <a href="/cart.html">
+              <img
+                style="color: blue"
+                src="/assets/icons/shopping-cart.svg"
+                alt=""
+              />
+            </a>
+          </div>
+          <img
+            style="color: blue"
+            id="menu-button"
+            src="/assets/icons/menu.svg"
+            alt=""
+          />
+        </div>
+      </div>
+
+      <div class="nav-menu hidden">
+        <a href="/sneakers.html">Sneakers</a>
+        <form id="search-form-mobile">
+          <input
+            id="search-input-mobile"
+            type="text"
+            placeholder="Busca un sneaker..."
+          />
+          <img src="/assets/icons/search.svg" alt="" />
+        </form>
+      </div>
+    </nav>
+    <main class="container main-content">
+      <h1>Mi carrito</h1>
+      <section class="cart-content">
+        <div class="products-section">
+          <div class="header-row">
+            <span class="header-product">Producto</span>
+            <span class="header-qty">Cantidad</span>
+            <span class="header-subtotal">Subtotal</span>
+          </div>
+          <div id="cart-products">
+            <!-- <div class="cart-product">
+              <div class="name">
+                <img
+                  src="https://ankbyqnqwkoduboshrsd.supabase.co/storage/v1/object/public/Shoes/nikeDunkHighLightChocolate.png"
+                  alt=""
+                />
+                <span class="">Adidas Yeezy Boost 350 V2</span>
+              </div>
+              <div class="qty">
+                <div class="qty-group">
+                  <button class="qty-btn minus">-</button>
+                  <span class="count">1</span>
+                  <button class="qty-btn add">+</button>
+                </div>
+              </div>
+              <div class="subtotal">
+                <span class="price">$210</span>
+                <span class="delete">X</span>
+              </div>
+            </div> -->
+          </div>
+        </div>
+        <div class="summary">
+          <h2>RESUMEN DE LA COMPRA</h2>
+          <form id="discount-form" class="discount-section">
+            <input
+              type="text"
+              placeholder="🏷️ Código de descuento"
+              name="discount-code"
+              id="discount-code"
+              class="discount-code"
+            />
+            <button class="try-discount-code">Aplicar</button>
+          </form>
+          <div class="prices">
+            <div class="price-section">
+              <span class="smaller-price-tag">Subtotal</span>
+              <span>$1</span>
+            </div>
+            <div class="price-section">
+              <span class="smaller-price-tag">Costo de envío</span>
+              <span>$0</span>
+            </div>
+            <div class="price-section">
+              <span class="smaller-price-tag">Descuento</span>
+              <span>$0</span>
+            </div>
+            <hr class="line" />
+            <div class="total-price-section">
+              <span class="price-tag">Total</span>
+              <span>$630</span>
+            </div>
+          </div>
+          <button id="pay-button" class="pay-button">PAGAR</button>
+        </div>
+      </section>
+    </main>
+    <footer>
+      <div class="footer container">
+        <div class="footer-left-section">
+          <img
+            class="footer-logo"
+            src="/assets/images/logo-white.png"
+            alt="Sneak Logo"
+          />
+          <div>
+            <span class="footer-location"
+              >San Martín 293, Mendoza, Argentina</span
+            >
+            <span class="footer-shipping">Envíos a todo el país</span>
+          </div>
+        </div>
+        <div class="footer-right-section">
+          <div class="social-icons">
+            <a href="#"><img src="/assets/icons/instagram.svg" alt="" /></a>
+            <a href="#"><img src="/assets/icons/twitter.svg" alt="" /></a>
+            <a href="#"><img src="/assets/icons/mail.svg" alt="" /></a>
+          </div>
+          <span
+            >Todos los derechos reservados Sneak. <span id="current-year"></span
+          ></span>
+        </div>
+      </div>
+    </footer>
+
+    <script type="module" src="/js/cart.js"></script>
+    <script type="module" src="/js/script.js"></script>
   </body>
 </html>
