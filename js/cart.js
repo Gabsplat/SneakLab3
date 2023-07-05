@@ -1,5 +1,29 @@
 import { baseUrl, supabaseHeaders } from "./script.js";
 
+const mendozaCoords = {
+  lat: -34.629887,
+  lon: -68.583122,
+};
+
+function calcDistance(lat1, lon1, lat2, lon2) {
+  var R = 6371;
+  var dLat = toRad(lat2 - lat1);
+  var dLon = toRad(lon2 - lon1);
+  var lat1 = toRad(lat1);
+  var lat2 = toRad(lat2);
+
+  var a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
+  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  var d = R * c;
+  return d;
+}
+
+function toRad(value) {
+  return (value * Math.PI) / 180;
+}
+
 async function getShoeById(id) {
   return fetch(baseUrl + `/shoes?select=*,sizes(*)&id=eq.${id}`, {
     method: "GET",
@@ -9,16 +33,7 @@ async function getShoeById(id) {
     .then((data) => data[0]);
 }
 
-async function getAvailableCoupons() {
-  return fetch(baseUrl + "/discounts?select=*&uses-left=gte.1", {
-    method: "GET",
-    headers: supabaseHeaders,
-  })
-    .then((response) => response.json())
-    .then((data) => data);
-}
-
-async function getCouponAmount(coupon_id) {
+export async function getCouponAmount(coupon_id) {
   if (!coupon_id) return 0;
   return fetch(
     baseUrl + `/discounts?select=*&code=eq.${coupon_id}&uses-left=gte.1`,
@@ -59,7 +74,7 @@ async function getSubtotalPrice() {
   return totalPrice;
 }
 
-function getItemsFromCart() {
+export function getItemsFromCart() {
   let items = {};
   for (let i = 0; i < localStorage.length; i++) {
     const key = localStorage.key(i);
@@ -82,27 +97,42 @@ function getCurrentCouponCode() {
   return couponCode;
 }
 
-function getShippingValue() {
-  const shippingValue = localStorage.getItem("shipping");
-  if (shippingValue === "") {
-    return 0;
-  }
-  return parseInt(shippingValue);
+function getCurrentShipping() {
+  const shipping = localStorage.getItem("shipping");
+  return shipping;
 }
 
-async function updateSummaryPrices() {
-  const subtotalElement = document.querySelector("#subtotal-price");
-  const shippingElement = document.querySelector("#shipping-price");
-  const discountElement = document.querySelector("#discount-value");
-  const totalElement = document.querySelector("#total-price");
+function getShippingValue() {
+  let currentShipping = getCurrentShipping();
+  let shipmentCost = 0;
+  if (currentShipping !== "") {
+    currentShipping = JSON.parse(currentShipping).centroide;
+    let distance = calcDistance(
+      mendozaCoords.lat,
+      mendozaCoords.lon,
+      currentShipping.lat,
+      currentShipping.lon
+    );
+    if (distance > 1500) {
+      shipmentCost = 40;
+    } else if (distance > 1000) {
+      shipmentCost = 30;
+    } else if (distance > 500) {
+      shipmentCost = 20;
+    } else if (distance > 250) {
+      shipmentCost = 10;
+    }
+  }
+  return shipmentCost;
+}
 
+export async function getPrices() {
   let subtotal = await getSubtotalPrice();
   let total = subtotal;
   let discountAmount = 0;
   const shippingValue = getShippingValue();
 
   const couponCode = getCurrentCouponCode();
-  console.log(couponCode);
   if (couponCode !== null) {
     discountAmount = await getCouponAmount(couponCode);
     total -= discountAmount;
@@ -114,9 +144,41 @@ async function updateSummaryPrices() {
     total = 0;
   }
 
+  return {
+    subtotal,
+    shippingValue,
+    discountAmount,
+    total,
+  };
+}
+
+export async function updateSummaryPrices() {
+  const subtotalElement = document.querySelector("#subtotal-price");
+  const shippingElement = document.querySelector("#shipping-price");
+  const discountElement = document.querySelector("#discount-value");
+  const totalElement = document.querySelector("#total-price");
+
+  let { subtotal, shippingValue, discountAmount, total } = await getPrices();
+
+  // let subtotal = await getSubtotalPrice();
+  // let total = subtotal;
+  // let discountAmount = 0;
+  // const shippingValue = getShippingValue();
+
+  // const couponCode = getCurrentCouponCode();
+  // if (couponCode !== null) {
+  //   discountAmount = await getCouponAmount(couponCode);
+  //   total -= discountAmount;
+  // }
+
+  // total += shippingValue;
+
+  // if (total < 0) {
+  //   total = 0;
+  // }
+
   subtotalElement.textContent = `$${subtotal}`;
   shippingElement.textContent = `$${shippingValue}`;
-  console.log("DAm:", discountAmount);
   discountElement.textContent = `$${discountAmount}`;
   totalElement.textContent = `$${total}`;
 }
@@ -192,7 +254,7 @@ async function createCartCard({ id, size, qty }) {
 function insertCards() {
   const cartContainer = document.querySelector("#cart-products");
   const items = getItemsFromCart();
-  if (Object.keys(items).length > 0) {
+  if (Object.keys(items).length > 0 && cartContainer) {
     for (const key in items) {
       const item = items[key];
       createCartCard(item).then((card) => {
@@ -201,10 +263,14 @@ function insertCards() {
     }
   } else {
     const productsSection = document.querySelector("#products-section");
-    productsSection.classList.add("hidden");
+    if (productsSection) {
+      productsSection.classList.add("hidden");
+    }
 
     const emptyCart = document.querySelector("#empty-cart");
-    emptyCart.classList.remove("hidden");
+    if (emptyCart) {
+      emptyCart.classList.remove("hidden");
+    }
   }
 }
 
@@ -250,8 +316,17 @@ if (
   couponCodeElement.textContent = getCurrentCouponCode();
   successElement.classList.remove("hidden");
   couponSubmitButton.disabled = true;
-  couponSubmitButton.classList.add("disabled");
   couponInput.disabled = true;
+}
+
+let payButton = document.querySelector("#pay-button");
+let amountItemsInCart = Object.keys(getItemsFromCart()).length;
+if (amountItemsInCart === 0 && payButton) {
+  payButton.disabled = true;
+} else if (amountItemsInCart > 0 && payButton) {
+  payButton.addEventListener("click", () => {
+    window.location.href = "./cart-checkout.html";
+  });
 }
 
 updateSummaryPrices();

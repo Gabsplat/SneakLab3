@@ -145,7 +145,8 @@
   text-decoration: none;
 }
 
-.disabled {
+.try-discount-code:disabled,
+.pay-button:disabled {
   background-color: #d9d9d9;
   color: #4d4d4d;
   cursor: not-allowed;

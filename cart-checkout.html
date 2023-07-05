@@ -5,9 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sneak.</title>
     <link rel="stylesheet" href="/styles/cart.css" />
+    <link rel="stylesheet" href="/styles/cart-checkout.css" />
     <link rel="stylesheet" href="/styles/style.css" />
   </head>
   <body>
+    <div id="modal-1" class="jw-modal">
+      <div class="jw-modal-body">
+        <h1>¡La compra se ha realizado con éxito!</h1>
+        <p>
+          Se enviarán todos los datos de la compra a su mail:<br />
+          <b><span id="modal-client-email"></span></b>
+        </p>
+
+        <button id="close-modal-button">Cerrar</button>
+      </div>
+    </div>
     <nav class="container navbar">
       <a href="/"><img src="/assets/images/logo.png" alt="" /></a>
       <div class="nav-items">
@@ -72,7 +84,129 @@
       <h1>Mi carrito</h1>
 
       <section class="cart-content">
-        <div class="products-section"></div>
+        <div class="data-section">
+          <form id="checkout-form" class="relevant-data">
+            <div class="client-data">
+              <h3>Datos del cliente</h3>
+              <div class="input-group">
+                <input
+                  placeholder="Nombre y apellido"
+                  type="text"
+                  name="name"
+                  id="name"
+                />
+              </div>
+              <div class="input-group">
+                <input
+                  placeholder="Email"
+                  type="email"
+                  name="email"
+                  id="email"
+                />
+              </div>
+              <div class="input-group">
+                <input
+                  placeholder="Teléfono de contacto"
+                  type="text"
+                  name="phone"
+                  id="phone"
+                />
+              </div>
+            </div>
+            <div class="billing-data">
+              <h3>Datos de facturación</h3>
+              <div class="input-group">
+                <input
+                  placeholder="Nombre del titular"
+                  type="text"
+                  name="holder-name"
+                  id="holder-name"
+                />
+              </div>
+              <div class="input-group">
+                <input
+                  placeholder="Número de tarjeta"
+                  required
+                  type="text"
+                  name="card-number"
+                  id="card-number"
+                />
+              </div>
+              <div class="input-group">
+                <input
+                  placeholder="Fecha de vencimiento"
+                  required
+                  type="text"
+                  onfocus="(this.type='date')"
+                  onblur="(this.type='text')"
+                  name="expiration-date"
+                  id="expiration-date"
+                />
+              </div>
+              <div class="input-group">
+                <input
+                  placeholder="CVC"
+                  required
+                  maxlength="4"
+                  minlength="1"
+                  type="text"
+                  name="cvc"
+                  id="cvc"
+                />
+              </div>
+            </div>
+          </form>
+          <form id="shipment-form" class="address-data">
+            <h3>Datos del envío</h3>
+            <!-- Add two checkboxes for the user to choose if they want to pick up in store or have it sent to them -->
+            <div class="radio-group">
+              <label for="">
+                Retiro en tienda
+                <input
+                  type="radio"
+                  checked
+                  name="shipping-type"
+                  id="pick-up-type"
+                  value="pick-up"
+                />
+              </label>
+              <label for="">
+                Envío a domicilio
+                <input
+                  type="radio"
+                  name="shipping-type"
+                  value="shipment"
+                  id="shipment-type"
+                />
+              </label>
+            </div>
+
+            <div class="input-group address-group hidden">
+              <input
+                placeholder="Dirección"
+                type="text"
+                required
+                name="address"
+                id="address"
+              />
+            </div>
+            <div class="input-group address-group hidden">
+              <select name="province" id="province"></select>
+            </div>
+            <div class="input-group address-group hidden">
+              <input
+                placeholder="Código postal"
+                required
+                type="text"
+                name="postal-code"
+                id="postal-code"
+              />
+            </div>
+            <button class="address-group address-button hidden">
+              CALCULAR GASTOS
+            </button>
+          </form>
+        </div>
         <div class="summary">
           <h2>RESUMEN DE LA COMPRA</h2>
           <form id="discount-form" class="discount-section">
@@ -115,7 +249,14 @@
               <span id="total-price">$0</span>
             </div>
           </div>
-          <button id="pay-button" class="pay-button">PAGAR</button>
+          <span
+            id="checkout-error-message"
+            class="checkout-error-message hidden"
+            >Faltan campos del formulario</span
+          >
+          <button id="finalize-pay-button" class="pay-button">
+            FINALIZAR PAGO
+          </button>
         </div>
       </section>
     </main>
@@ -148,6 +289,7 @@
     </footer>
 
     <script type="module" src="/js/cart.js"></script>
+    <script type="module" src="/js/cart-checkout.js"></script>
     <script type="module" src="/js/script.js"></script>
   </body>
 </html>

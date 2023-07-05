@@ -99,7 +99,7 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    min-height: 30vh;
+    min-height: 70vh;
     padding: 6% 0;
     gap: 80px;
   }

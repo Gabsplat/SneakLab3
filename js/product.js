@@ -61,12 +61,18 @@ getShoeById(id)
       productPriceDiscount.style.display = "none";
     }
 
-    shoe[0].sizes.forEach((size) => {
-      let option = document.createElement("option");
-      option.value = size.size;
-      option.textContent = size.size;
-      sizeSelect.appendChild(option);
-    });
+    console.log(shoe[0].sizes);
+    // order shoe[0].sizes object that contains a size property ascending
+    shoe[0].sizes
+      .sort((a, b) => {
+        return a.size - b.size;
+      })
+      .forEach((size) => {
+        let option = document.createElement("option");
+        option.value = size.size;
+        option.textContent = size.size;
+        sizeSelect.appendChild(option);
+      });
   })
   .catch((err) => {
     document.querySelector("#no-product-found").style.display = "flex";
