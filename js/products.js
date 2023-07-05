@@ -14,7 +14,7 @@ const sizesParam = urlParams.get("sizes");
 const priceRangeParam = urlParams.get("priceRange");
 const search = urlParams.get("search");
 const order = urlParams.get("order");
-const page = urlParams.get("page");
+const page = urlParams.get("page") || 1;
 
 const filters = {
   brands: brandsParam ? brandsParam.split(",") : [],
@@ -264,6 +264,19 @@ filterButton.addEventListener("click", (e) => {
   }
 
   window.location = finalUrl;
+});
+
+/* Next page */
+
+const nextPageButton = document.querySelector("#next-page");
+nextPageButton.addEventListener("click", () => {
+  let nextPage = page + 1;
+  let baseUrl =
+    window.location.pathname +
+    (window.location.search || "?") +
+    "&" +
+    `page=${nextPage}`;
+  window.location = baseUrl;
 });
 
 /* Calls */
