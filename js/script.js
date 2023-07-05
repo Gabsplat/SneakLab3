@@ -78,8 +78,22 @@ export async function insertShoesCards(shoes, selector) {
 export function updateCartCounter() {
   const cartCounter = document.querySelectorAll(".cart-counter");
   cartCounter.forEach((counter) => {
-    counter.textContent = localStorage.length;
+    counter.textContent = localStorage.length - 2;
   });
+}
+
+function instantiateLocalStorageCart() {
+  const couponCode = "";
+  const shippingLocation = "";
+
+  localStorage.setItem("coupon-code", couponCode);
+  localStorage.setItem("shipping", shippingLocation);
+}
+if (
+  localStorage.getItem("coupon-code") === null ||
+  localStorage.getItem("shipping") === null
+) {
+  instantiateLocalStorageCart();
 }
 
 updateCartCounter();
